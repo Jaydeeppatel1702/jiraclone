@@ -1,0 +1,9 @@
+::ng-deep .table-scroll {
+  max-height: calc(100vh - 10rem);
+  overflow-y: auto;
+ 
+}
+
+::ng-deep .p-card-subtitle{
+    color: white;
+}

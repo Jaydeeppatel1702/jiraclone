@@ -1,0 +1,112 @@
+<div class="home-main">
+
+    <p-card [style]="{'background-color':'#F6FAFB'} " header="Task Viewer">
+
+
+        <ng-template pTemplate="header">
+            <p-button (click)="showDialog()" icon="pi pi-calendar-plus" label="New " class="Addtask"
+                [style]="{'width':'100px','font-size':'15px','height':'10px','float':'right','margin-top':'25px','margin-right':'5px'}"></p-button>
+            <p-dialog header="Add Task" [(visible)]="visible" [breakpoints]="{ '960px': '75vw' }"
+                [style]="{ width: 'auto' }" [draggable]="true" [resizable]="false">
+                <div style="display: flex; flex-direction: column;">
+
+                    <div style="display: flex; flex-direction: column; margin-bottom: 10px;">
+                        <label for="taskName">Task Name:</label>
+                        <input pInputText [(ngModel)]="newTaskName" style="width: 200px;" />
+                    </div>
+
+
+                    <div style="display: flex; flex-direction: column;">
+                        <label for="taskDate">Task Date:</label>
+                        <input pInputText [(ngModel)]="newTaskDate" style="width: 200px;" />
+                    </div>
+
+
+                    <div style="display: flex; margin-top: 10px;">
+                        <button pButton type="button" label="Add"
+                            style="margin-right: 10px; width: 100px; height: 30px;" (click)="addtask()"></button>
+                        <button pButton type="button" label="Cancel" (click)="closeDialog()"
+                            style="width: 100px; height: 30px;"></button>
+                    </div>
+                </div>
+            </p-dialog>
+        </ng-template>
+        <p-table [value]="dummyArray" styleClass="p-datatable-striped p-datatable-gridlines table-scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 100px;">New Task </th>
+                    <th>In Progress</th>
+                    <th>Under Review</th>
+                    <th>Cancelled</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td><p-card [header]="product.taskname" [subheader]="product.Date"
+                            [style]="{ width: '400px' ,'background-image':'radial-gradient(circle at left top, var(--primary-400), var(--primary-700))','color':'white'}"
+                            *ngIf="product.StatusValue==1">
+
+                            Current Status : {{product.StatusLabel}}
+                            <ng-template pTemplate="footer" style="display: flex;">
+
+                                <p-button label="In Progress" severity="success"
+                                    [style]="{'width':'100px', 'height':'10px','font-size':'10px', 'margin-right': '10px'  }"
+                                    (click)="changestatus(product.id,2)"></p-button>
+                                <p-button label="Under Review" severity="help"
+                                    [style]="{'width':'100px', 'height':'10px','font-size':'10px', 'margin-right': '10px'  }"
+                                    (click)="changestatus(product.id,3)"></p-button>
+                                <p-button label="Cancelled" severity="danger"
+                                    [style]="{'width':'100px', 'height':'10px','font-size':'10px' }"
+                                    (click)="changestatus(product.id,0)"></p-button>
+                            </ng-template>
+                        </p-card></td>
+                    <td><p-card [header]="product.taskname" [subheader]="product.Date"
+                            [style]="{ width: '400px' ,'background-image':'radial-gradient(circle at left top, var(--primary-400), var(--primary-700))','color':'white'}"
+                            *ngIf="product.StatusValue==2">
+
+                            Current Status : {{product.StatusLabel}}
+                            <ng-template pTemplate="footer" style="display: flex;">
+
+                                <p-button label="Under Review" severity="help"
+                                    [style]="{'width':'100px', 'height':'10px','font-size':'10px', 'margin-right': '10px'  }"
+                                    (click)="changestatus(product.id,3)"></p-button>
+                                <p-button label="Cancelled" severity="danger"
+                                    [style]="{'width':'100px', 'height':'10px','font-size':'10px' }"
+                                    (click)="changestatus(product.id,0)"></p-button>
+                            </ng-template>
+                        </p-card></td>
+                    <td><p-card [header]="product.taskname" [subheader]="product.Date"
+                            [style]="{ width: '400px','background-image':'radial-gradient(circle at left top, var(--primary-400), var(--primary-700))','color':'white' }"
+                            *ngIf="product.StatusValue==3">
+
+                            Current Status : {{product.StatusLabel}}
+                            <ng-template pTemplate="footer" style="display: flex;">
+                                <p-button label="In Progress" severity="success"
+                                    [style]="{'width':'100px', 'height':'10px','font-size':'10px', 'margin-right': '10px'  }"
+                                    (click)="changestatus(product.id,2)"></p-button>
+
+                                <p-button label="Cancelled" severity="danger"
+                                    [style]="{'width':'100px', 'height':'10px','font-size':'10px' }"
+                                    (click)="changestatus(product.id,0)"></p-button>
+                            </ng-template>
+                        </p-card></td>
+                    <td><p-card [header]="product.taskname" [subheader]="product.Date"
+                            [style]="{ width: '400px','background-image':'radial-gradient(circle at left top, var(--primary-400), var(--primary-700))','color':'white' }"
+                            *ngIf="product.StatusValue==0">
+
+                            Current Status : {{product.StatusLabel}}
+                            <ng-template pTemplate="footer" style="display: flex;">
+                                <p-button label="In Progress" severity="success"
+                                    [style]="{'width':'100px', 'height':'10px','font-size':'10px', 'margin-right': '10px'  }"
+                                    (click)="changestatus(product.id,2)"></p-button>
+                                <p-button label="Under Review" severity="help"
+                                    [style]="{'width':'100px', 'height':'10px','font-size':'10px', 'margin-right': '10px'  }"
+                                    (click)="changestatus(product.id,3)"></p-button>
+
+                            </ng-template>
+                        </p-card></td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
+</div>
